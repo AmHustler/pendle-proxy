@@ -5,8 +5,18 @@ export default async function handler(req, res) {
     );
 
     const data = await response.json();
-    res.status(200).json(data);
+
+    res.status(200).json({
+      success: true,
+      snapshot_time: data.snapshot_time,
+      count: data.count,
+      data: data.data,
+    });
+
   } catch (error) {
-    res.status(500).json({ success: false, error: "Proxy failed" });
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 }
